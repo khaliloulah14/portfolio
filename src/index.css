@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Bricolage Grotesque", sans-serif;
+  --animate-float-slow: float-slow 16s ease-in-out infinite;
+  --animate-float-slower: float-slower 22s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgb(34 197 94 / 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 0 5px rgb(34 197 94 / 0.08);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-3%, 5%, 0) scale(1.07);
+  }
+}
+
+@keyframes float-slower {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(4%, -4%, 0) scale(1.05);
+  }
+}
+
+@keyframes gradient-pan {
+  to {
+    background-position: 300% 50%;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  min-width: 320px;
+  background: #f5f7fa;
+  color: #0f172a;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* --- Décor du hero --- */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(100 116 139 / 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(100 116 139 / 0.16) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 42%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 42%, #000 20%, transparent 75%);
+}
+
+.dark .hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(148 163 184 / 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(148 163 184 / 0.14) 1px, transparent 1px);
+}
+
+/* --- Titre en dégradé animé --- */
+.text-gradient {
+  background-image: linear-gradient(115deg, #4f46e5, #7c3aed, #2563eb, #4f46e5);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 9s linear infinite;
+}
+
+.dark .text-gradient {
+  background-image: linear-gradient(115deg, #818cf8, #c084fc, #60a5fa, #818cf8);
+}
+
+/* --- Effet spotlight au survol des cartes --- */
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(320px circle at var(--spot-x, 50%) var(--spot-y, 0%), rgb(79 70 229 / 0.12), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+.dark .spotlight::before {
+  background: radial-gradient(320px circle at var(--spot-x, 50%) var(--spot-y, 0%), rgb(129 140 248 / 0.18), transparent 65%);
+}
+
+/* --- Focus visible --- */
+:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 3px;
+}
+
+/* --- Barre de défilement --- */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(148 163 184 / 0.5);
+    background-clip: content-box;
+    border: 2px solid transparent;
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(100 116 139 / 0.75);
+    background-clip: content-box;
+  }
+}
+
+/* --- Mouvement réduit --- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
