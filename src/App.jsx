@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-const CONTACT_EMAIL = 'ibrahima.diaite@email.com'
-const EMAIL_A_CONFIRMER = CONTACT_EMAIL.endsWith('@email.com')
+const CONTACT_EMAIL = 'diaitekhalil64@gmail.com'
 
 const navigation = [
   { href: '#hero', label: 'Accueil' },
@@ -679,8 +678,6 @@ function ContactForm() {
   const [etat, setEtat] = useState('repos')
   const [erreurEnvoi, setErreurEnvoi] = useState('')
 
-  const actif = !EMAIL_A_CONFIRMER
-
   const maj = (champNom) => (event) => {
     const { value } = event.target
     setValeurs((precedent) => ({ ...precedent, [champNom]: value }))
@@ -833,17 +830,11 @@ function ContactForm() {
           </p>
         )}
 
-        {!actif && (
-          <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-5 font-medium text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
-            Le formulaire sera actif dès que l&apos;adresse de réception sera confirmée.
-          </p>
-        )}
-
         <div className="flex flex-wrap items-center gap-4 pt-1">
           <Magnetic strength={8}>
             <button
               type="submit"
-              disabled={etat === 'envoi' || !actif}
+              disabled={etat === 'envoi'}
               className="shine inline-flex items-center gap-2 rounded-[10px] bg-indigo-600 px-7 py-3 text-sm font-semibold text-white shadow-[0_4px_14px_rgb(79_70_229_/_0.3)] transition hover:-translate-y-0.5 hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 dark:bg-indigo-500 dark:hover:bg-indigo-400"
             >
               {etat === 'envoi' ? 'Envoi en cours…' : 'Envoyer le message'}
